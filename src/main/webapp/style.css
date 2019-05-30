@@ -6,3 +6,6 @@
     color: blue;
 }
 
+.hidden {
+    display: none;
+}
