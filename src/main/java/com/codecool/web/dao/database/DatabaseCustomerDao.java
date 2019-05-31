@@ -47,7 +47,7 @@ public class DatabaseCustomerDao extends AbstractDao implements CustomerDao {
     }
 
     @Override
-    public void add(int id, String email, String password, String fullName, Set<Review> reviews, Set<BookOrder> bookOrders, String address, int cashAmount) throws SQLException {
+    public void add(int id, String email, String password, String fullName, List<Review> reviews, List<BookOrder> bookOrders, String address, int cashAmount) throws SQLException {
         String sql = "INSERT INTO customer(email, password, full_name) VALUES(?,?,?);";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(2, email);
@@ -63,8 +63,8 @@ public class DatabaseCustomerDao extends AbstractDao implements CustomerDao {
         String email = resultSet.getString("email");
         String password = resultSet.getString("password");
         String fullName = resultSet.getString("fullname");
-        Set<Review> review = null;
-        Set<BookOrder> bookOrders = null;
+        List<Review> review = null;
+        List<BookOrder> bookOrders = null;
         String address = resultSet.getString("address");
         int cashAmount = resultSet.getInt("cash_amount");
         return new Customer(id, email, password, fullName, review, bookOrders, address, cashAmount);

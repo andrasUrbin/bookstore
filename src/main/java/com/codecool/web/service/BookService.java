@@ -1,0 +1,10 @@
+package com.codecool.web.service;
+
+import com.codecool.web.model.Book;
+
+import java.sql.SQLException;
+import java.util.List;
+
+public interface BookService {
+    List<Book> findAll() throws SQLException;
+}

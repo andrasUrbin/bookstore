@@ -6,7 +6,7 @@ const INTERNAL_SERVER_ERROR = 500;
 
 let loginContentDivEl;
 let schedulesContentDivEl;
-let tasksContentDivEl;
+let booksContentDivEl;
 let profileContentDivEl;
 let backToProfileContentDivEl;
 let logoutContentDivEl;

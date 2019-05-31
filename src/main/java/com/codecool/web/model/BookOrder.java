@@ -1,16 +1,16 @@
 package com.codecool.web.model;
 
 import java.sql.Date;
-import java.util.Set;
+import java.util.List;
 
 public class BookOrder extends AbstractModel {
 
     private Customer customer;
     private Date orderDate;
     private String shippingAddress;
-    private Set<OrderDetail> orderDetails;
+    private List<OrderDetail> orderDetails;
 
-    public BookOrder(int id, Customer customer, Date orderDate, String shippingAddress, Set<OrderDetail> orderDetails) {
+    public BookOrder(int id, Customer customer, Date orderDate, String shippingAddress, List<OrderDetail> orderDetails) {
         super(id);
         this.customer = customer;
         this.orderDate = orderDate;
@@ -42,11 +42,11 @@ public class BookOrder extends AbstractModel {
         this.shippingAddress = shippingAddress;
     }
 
-    public Set<OrderDetail> getOrderDetails() {
+    public List<OrderDetail> getOrderDetails() {
         return orderDetails;
     }
 
-    public void setOrderDetails(Set<OrderDetail> orderDetails) {
+    public void setOrderDetails(List<OrderDetail> orderDetails) {
         this.orderDetails = orderDetails;
     }
 }

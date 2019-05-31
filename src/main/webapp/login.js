@@ -10,7 +10,24 @@ function onLoginAsAdministratorClicked(){
 
 function onProfileLoad(user) {
     clearMessages();
-    showContents(['welcome', 'topnav', 'profile-content']);
+    showContents(['topnav-admin', 'main-content-admin']);
+}
+
+function onCustomerProfileLoad(user) {
+    clearMessages();
+    showContents(['topnav-customer', 'main-content-customer', 'books-content']);
+}
+
+function onListBooksClicked() {
+    const params = new URLSearchParams();
+    const user = getAuthorization();
+
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onBooksResponse);
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('GET', 'protected/books');
+    xhr.send();
+
 }
 
 function onLoginResponse() {
@@ -47,7 +64,7 @@ function onLoginAsCustomerResponse() {
     if (this.status === OK) {
         const user = JSON.parse(this.responseText);
         setAuthorization(user);
-        onProfileLoad(user);
+        onCustomerProfileLoad(user);
     } else {
         onOtherResponse(loginContentDivEl, this);
     }
@@ -67,7 +84,7 @@ function onLoginAsCustomerButtonClicked() {
     params.append('password', password);
 
     const xhr = new XMLHttpRequest();
-    xhr.addEventListener('load', onLoginResponse);
+    xhr.addEventListener('load', onLoginAsCustomerResponse);
     xhr.addEventListener('error', onNetworkError);
     xhr.open('POST', 'login-customer');
     xhr.send(params);

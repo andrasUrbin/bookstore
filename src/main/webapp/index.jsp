@@ -8,6 +8,7 @@
     <c:url value="/style.css" var="styleUrl"/>
     <c:url value="/index.js" var="indexScriptUrl"/>
     <c:url value="/login.js" var="loginScriptUrl"/>
+    <c:url value="/books.js" var="booksScriptUrl"/>
     <c:url value="/profile.js" var="profileScriptUrl"/>
     <c:url value="/back-to-profile.js" var="backToProfileScriptUrl"/>
     <c:url value="/logout.js" var="logoutScriptUrl"/>
@@ -16,12 +17,29 @@
             integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <script src="${indexScriptUrl}"></script>
     <script src="${loginScriptUrl}"></script>
+    <script src="${booksScriptUrl}"></script>
     <script src="${profileScriptUrl}"></script>
     <script src="${backToProfileScriptUrl}"></script>
     <script src="${logoutScriptUrl}"></script>
     <title>App</title>
 </head>
 <body>
+<div id="topnav-customer" class="hidden content">
+    <a id="logout-menu-button" class="active" href="javascript:void(0);">Logout</a>
+    <a href="javascript:void(0);" onclick="onListBooksClicked();">Browse Books</a>
+    <a href="javascript:void(0);" onclick="onListBooksClicked();">Cart</a>
+    <a href="javascript:void(0);" onclick="onListBooksClicked();">My Profile</a>
+    <a href="javascript:void(0);" onclick="onBackToProfileClicked();">Back to profile</a>
+</div>
+
+<div id="topnav-admin" class="hidden content">
+    <a id="logout-menu-button" class="active" href="javascript:void(0);">Logout</a>
+    <a href="javascript:void(0);" onclick="onListSchedulesClicked();">Browse Books</a>
+    <a href="javascript:void(0);" onclick="onListBooksClicked();">Add books</a>
+    <a href="javascript:void(0);" onclick="onListBooksClicked();">Manage users</a>
+    <a href="javascript:void(0);" onclick="onListBooksClicked();">My Profile</a>
+    <a href="javascript:void(0);" onclick="onBackToProfileClicked();">Back to profile</a>
+</div>
 
 <div id="login-content" class="hidden content">
     <h1>Login as administrator</h1>
@@ -41,6 +59,17 @@
         <button id="login-button-customer">Login</button>
     </form>
         <button onclick="onLoginAsAdministratorClicked();">Login as administrator</button>
+
+</div>
+
+<div id="books-content" class="hidden content">
+    <h1>Books</h1>
+    <div id="books">
+        <ul>
+
+        </ul>
+    </div>
+
 
 </div>
 

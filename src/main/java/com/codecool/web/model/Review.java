@@ -5,16 +5,16 @@ public class Review extends AbstractModel{
     private String headline;
     private String comment;
     private int rating;
-    private Book book;
-    private Customer customer;
+    private int bookId;
+    private int customerId;
 
-    public Review(int id, String headline, String comment, int rating, Book book, Customer customer) {
+    public Review(int id, String headline, String comment, int rating, int bookId, int customerId) {
         super(id);
         this.headline = headline;
         this.comment = comment;
         this.rating = rating;
-        this.book = book;
-        this.customer = customer;
+        this.bookId = bookId;
+        this.customerId = customerId;
     }
 
     public String getHeadline() {
@@ -41,19 +41,19 @@ public class Review extends AbstractModel{
         this.comment = comment;
     }
 
-    public Book getBook() {
-        return book;
+    public int getBookId() {
+        return bookId;
     }
 
-    public void setBook(Book book) {
-        this.book = book;
+    public void setBookId(int bookId) {
+        this.bookId = bookId;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public int getCustomerId() {
+        return customerId;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 }

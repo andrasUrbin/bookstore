@@ -1,18 +1,18 @@
 package com.codecool.web.model;
 
-import java.util.Set;
+import java.util.List;
 
 public class Customer extends AbstractModel {
 
     private String email;
     private String password;
     private String fullName;
-    private Set<Review> reviews;
-    private Set<BookOrder> bookOrders;
+    private List<Review> reviews;
+    private List<BookOrder> bookOrders;
     private String address;
     private int cashAmount;
 
-    public Customer(int id, String email, String password, String fullName, Set<Review> reviews, Set<BookOrder> bookOrders, String address, int cashAmount) {
+    public Customer(int id, String email, String password, String fullName, List<Review> reviews, List<BookOrder> bookOrders, String address, int cashAmount) {
         super(id);
         this.email = email;
         this.password = password;
@@ -63,19 +63,19 @@ public class Customer extends AbstractModel {
         this.fullName = fullName;
     }
 
-    public Set<Review> getReviews() {
+    public List<Review> getReviews() {
         return reviews;
     }
 
-    public void setReviews(Set<Review> reviews) {
+    public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
     }
 
-    public Set<BookOrder> getBookOrders() {
+    public List<BookOrder> getBookOrders() {
         return bookOrders;
     }
 
-    public void setBookOrders(Set<BookOrder> bookOrders) {
+    public void setBookOrders(List<BookOrder> bookOrders) {
         this.bookOrders = bookOrders;
     }
 }

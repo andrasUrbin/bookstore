@@ -30,8 +30,7 @@ CREATE TABLE book (
   title varchar(128) NOT NULL,
   author varchar(64) NOT NULL,
   description text NOT NULL,
-  image bytea,
-  price double precision NOT NULL,
+  price int NOT NULL,
   category_id int NOT NULL,
   PRIMARY KEY (book_id),
   CONSTRAINT book_id_UNIQUE UNIQUE  (book_id),
@@ -110,8 +109,8 @@ INSERT INTO category VALUES
     (4, 'Self-improvement');
 
 INSERT INTO book VALUES
-    (1, 'The Alchemist', 'Paulo Coelho', 'A great book', NULL, 20, 4),
-    (2, 'Pet Cemetery', 'Stephen King', 'Thrilling book', NULL, 25, 3);
+    (1, 'The Alchemist', 'Paulo Coelho', 'A great book', 20, 4),
+    (2, 'Pet Cemetery', 'Stephen King', 'Thrilling book', 25, 3);
 
 INSERT INTO customer VALUES
     (1,'customer1@customer.com', 'customer1', 'Vladimir Putin', '666, Moskow, Stalin Street 66, Russia', 50000);

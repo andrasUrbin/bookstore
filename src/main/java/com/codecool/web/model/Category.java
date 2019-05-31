@@ -1,16 +1,21 @@
 package com.codecool.web.model;
 
-import java.util.Set;
+import java.util.List;
 
 public class Category extends AbstractModel {
 
     private String name;
-    private Set<Book> books;
+    private List<Book> books;
 
-    public Category(int id, String name, Set<Book> books) {
+    public Category(int id, String name, List<Book> books) {
         super(id);
         this.name = name;
         this.books = books;
+    }
+
+    public Category(int id, String name) {
+        super(id);
+        this.name = name;
     }
 
     public String getName() {
@@ -21,11 +26,11 @@ public class Category extends AbstractModel {
         this.name = name;
     }
 
-    public Set<Book> getBooks() {
+    public List<Book> getBooks() {
         return books;
     }
 
-    public void setBooks(Set<Book> books) {
+    public void setBooks(List<Book> books) {
         this.books = books;
     }
 }
