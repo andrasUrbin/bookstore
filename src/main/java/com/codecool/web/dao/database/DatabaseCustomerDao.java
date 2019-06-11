@@ -8,7 +8,6 @@ import com.codecool.web.model.Review;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class DatabaseCustomerDao extends AbstractDao implements CustomerDao {
 
@@ -47,14 +46,25 @@ public class DatabaseCustomerDao extends AbstractDao implements CustomerDao {
     }
 
     @Override
-    public void add(int id, String email, String password, String fullName, List<Review> reviews, List<BookOrder> bookOrders, String address, int cashAmount) throws SQLException {
-        String sql = "INSERT INTO customer(email, password, full_name) VALUES(?,?,?);";
+    public void addUser(String email, String password, String fullName, String address) throws SQLException {
+        String sql = "INSERT INTO customer(email, password, fullname, address) VALUES(?,?,?,?);";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(2, email);
-            statement.setString(3,  password);
-            statement.setString(4, fullName);
-            statement.execute();
+            statement.setString(1, email);
+            statement.setString(2,  password);
+            statement.setString(3, fullName);
+            statement.setString(4, address);
+            statement.executeUpdate();
+        }
+    }
 
+    @Override
+    public boolean isEmailUsed(String email) throws SQLException {
+        String sql = "SELECT email FROM customer WHERE email = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)
+        ) {
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+            return resultSet.next();
         }
     }
 

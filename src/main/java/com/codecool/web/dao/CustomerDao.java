@@ -11,5 +11,6 @@ public interface CustomerDao {
 
     List<Customer> findAll() throws SQLException;
     Customer findByEmail(String email) throws SQLException;
-    void add(int id, String email, String password, String fullName, List<Review> reviews, List<BookOrder> bookOrders, String address, int cashAmount) throws SQLException;
+    void addUser(String email, String password, String fullName, String address) throws SQLException;
+    boolean isEmailUsed(String email) throws SQLException;
 }

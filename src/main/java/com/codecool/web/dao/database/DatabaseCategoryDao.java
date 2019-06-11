@@ -1,8 +1,6 @@
-/*
 package com.codecool.web.dao.database;
 
 import com.codecool.web.dao.CategoryDao;
-import com.codecool.web.model.Book;
 import com.codecool.web.model.Category;
 
 import java.sql.*;
@@ -14,7 +12,6 @@ public class DatabaseCategoryDao extends AbstractDao implements CategoryDao {
     DatabaseCategoryDao(Connection connection) {
         super(connection);
     }
-
 
     @Override
     public List<Category> findAll() throws SQLException {
@@ -28,7 +25,6 @@ public class DatabaseCategoryDao extends AbstractDao implements CategoryDao {
             return categories;
         }
     }
-
 
     @Override
     public Category findCategoryById(int id) throws SQLException {
@@ -44,13 +40,11 @@ public class DatabaseCategoryDao extends AbstractDao implements CategoryDao {
         return category;
     }
 
-
     private Category fetchCategory(ResultSet resultSet) throws SQLException{
         int id = resultSet.getInt("category_id");
         String name = resultSet.getString("category_name");
-        List<Book> books = findBooksByCategoryId(id);
         return new Category(id, name);
     }
 
 }
-*/
+

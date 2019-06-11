@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <c:url value="/style.css" var="styleUrl"/>
     <c:url value="/index.js" var="indexScriptUrl"/>
+    <c:url value="/registration.js" var="registrationScriptUrl"/>
     <c:url value="/login.js" var="loginScriptUrl"/>
     <c:url value="/books.js" var="booksScriptUrl"/>
     <c:url value="/profile.js" var="profileScriptUrl"/>
@@ -16,6 +17,7 @@
     <script src="https://code.jquery.com/jquery-3.4.1.js"
             integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <script src="${indexScriptUrl}"></script>
+    <script src="${registrationScriptUrl}"></script>
     <script src="${loginScriptUrl}"></script>
     <script src="${booksScriptUrl}"></script>
     <script src="${profileScriptUrl}"></script>
@@ -41,6 +43,21 @@
     <a href="javascript:void(0);" onclick="onBackToProfileClicked();">Back to profile</a>
 </div>
 
+<div id="reg-content" class="hidden content">
+    <h1>Customer registration</h1>
+    <form id="reg-form" onsubmit="return false;">
+        <h3>Email: </h3>
+        <input type="text" name="email">
+        <h3>Password: </h3>
+        <input type="password" name="password">
+        <h3>Full name: </h3>
+        <input type="text" name="fullname">
+        <h3>Address: </h3>
+        <input type="text" name="address">
+        <button id="reg-button" onclick="onRegistrationButtonClicked();">Registration</button>
+    </form>
+</div>
+
 <div id="login-content" class="hidden content">
     <h1>Login as administrator</h1>
     <form id="login-form" onsubmit="return false;">
@@ -59,6 +76,7 @@
         <button id="login-button-customer">Login</button>
     </form>
         <button onclick="onLoginAsAdministratorClicked();">Login as administrator</button>
+        <button onclick="onRegistrationClicked();">Registration</button>
 
 </div>
 
@@ -69,8 +87,12 @@
 
         </ul>
     </div>
+</div>
 
-
+<div id="cart-content" class="hidden content">
+    Items in your cart:
+    Total value of the items: 
+    <a href="#">Proceed to checkout</a>
 </div>
 
 <div id="back-to-profile-content" class="hidden content">
