@@ -81,17 +81,12 @@
 </div>
 
 <div id="books-content" class="hidden content">
-    <h1>Books</h1>
-    <div id="books">
-        <ul>
-
-        </ul>
-    </div>
+    
 </div>
 
 <div id="cart-content" class="hidden content">
     Items in your cart:
-    Total value of the items: 
+    Total value of the items:
     <a href="#">Proceed to checkout</a>
 </div>
 
