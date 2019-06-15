@@ -3,7 +3,7 @@ let BooksUlEl;
 
 function onBooksResponse() {
     if (this.status === OK) {
-        showContents(['books-content', 'topnav-customer']);
+        showContents(['books-content', 'topnav-customer', 'cart-content']);
         onBooksLoad(JSON.parse(this.responseText));
     } else {
         onOtherResponse(booksContentDivEl, this);
@@ -54,6 +54,7 @@ function appendBooks(Books) {
         }
         const addToCartButton = document.createElement('button');
         addToCartButton.setAttribute('id', 'itemId' + Books[i].id);
+        addToCartButton.setAttribute('onclick', onAddToCartClicked);
         addToCartButton.innerHTML = 'Add item to cart';
         addToCartForm.appendChild(selectEl);
         addToCartForm.appendChild(addToCartButton);

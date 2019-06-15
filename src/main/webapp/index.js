@@ -6,8 +6,8 @@ const INTERNAL_SERVER_ERROR = 500;
 
 let loginContentDivEl;
 let registrationContentDivEl;
-let schedulesContentDivEl;
 let booksContentDivEl;
+let cartTableEl;
 let profileContentDivEl;
 let backToProfileContentDivEl;
 let logoutContentDivEl;
@@ -99,9 +99,10 @@ function setUnauthorized() {
 function onLoad() {
     loginContentDivEl = document.getElementById('login-content');
     loginContentDivEl = document.getElementById('login-content-customer');
-    profileContentDivEl = document.getElementById('profile-content');
-    backToProfileContentDivEl = document.getElementById('back-to-profile-content');
+    cartContentDivEl = document.getElementById('cart-content');
     logoutContentDivEl = document.getElementById('logout-content');
+    booksContentDivEl = document.getElementById('books-content')
+    cartTableEl = document.getElementById('cart-table');
 
     const loginButtonEl = document.getElementById('login-button');
     loginButtonEl.addEventListener('click', onLoginButtonClicked);

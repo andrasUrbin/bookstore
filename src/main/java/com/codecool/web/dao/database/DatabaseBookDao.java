@@ -5,10 +5,7 @@ import com.codecool.web.model.Book;
 import com.codecool.web.model.Category;
 import com.codecool.web.model.Review;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +31,26 @@ public class DatabaseBookDao extends AbstractDao implements BookDao {
             }
             return books;
         }
+    }
+
+    @Override
+    public Book findBookById(int id) throws SQLException {
+        String sql = "select * from book \n" +
+            "\tinner join category\n" +
+            "\t\ton (book.category_id = category.category_id)\n" +
+            "\tfull join review\n" +
+            "\t\ton (book.book_id = review.book_id)\n" +
+            "where book.book_id = ?;";
+        Book book = null;
+        try(PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setInt(1, id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    book = fetchBook(resultSet);
+                }
+            }
+        }
+        return book;
     }
 
     private Book fetchBook(ResultSet resultSet) throws SQLException {

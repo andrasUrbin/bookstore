@@ -15,7 +15,7 @@ function onProfileLoad(user) {
 
 function onCustomerProfileLoad(user) {
     clearMessages();
-    showContents(['topnav-customer', 'main-content-customer', 'books-content']);
+    showContents(['topnav-customer', 'main-content-customer', 'books-content', 'cart-content']);
 }
 
 function onListBooksClicked() {

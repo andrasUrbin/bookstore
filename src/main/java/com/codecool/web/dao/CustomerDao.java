@@ -1,8 +1,6 @@
 package com.codecool.web.dao;
 
-import com.codecool.web.model.BookOrder;
 import com.codecool.web.model.Customer;
-import com.codecool.web.model.Review;
 
 import java.sql.SQLException;
 import java.util.List;

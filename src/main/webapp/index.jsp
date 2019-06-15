@@ -5,24 +5,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <c:url value="/style.css" var="styleUrl"/>
-    <c:url value="/index.js" var="indexScriptUrl"/>
-    <c:url value="/registration.js" var="registrationScriptUrl"/>
-    <c:url value="/login.js" var="loginScriptUrl"/>
-    <c:url value="/books.js" var="booksScriptUrl"/>
-    <c:url value="/profile.js" var="profileScriptUrl"/>
-    <c:url value="/back-to-profile.js" var="backToProfileScriptUrl"/>
-    <c:url value="/logout.js" var="logoutScriptUrl"/>
-    <link rel="stylesheet" type="text/css" href="${styleUrl}">
     <script src="https://code.jquery.com/jquery-3.4.1.js"
             integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-    <script src="${indexScriptUrl}"></script>
+    <c:url value="/style.css" var="styleUrl"/>
+    <c:url value="/registration.js" var="registrationScriptUrl"/>
+    <c:url value="/login.js" var="loginScriptUrl"/>
+    <c:url value="/cart.js" var="cartScriptUrl"/>
+    <c:url value="/books.js" var="booksScriptUrl"/>
+    <c:url value="/index.js" var="indexScriptUrl"/>
+    <c:url value="/logout.js" var="logoutScriptUrl"/>
+    <link rel="stylesheet" type="text/css" href="${styleUrl}">
+
     <script src="${registrationScriptUrl}"></script>
     <script src="${loginScriptUrl}"></script>
+    <script src="${cartScriptUrl}"></script>
     <script src="${booksScriptUrl}"></script>
-    <script src="${profileScriptUrl}"></script>
-    <script src="${backToProfileScriptUrl}"></script>
+    <script src="${indexScriptUrl}"></script>
     <script src="${logoutScriptUrl}"></script>
+
     <title>App</title>
 </head>
 <body>
@@ -81,14 +81,24 @@
 </div>
 
 <div id="books-content" class="hidden content">
-    
+
 </div>
 
 <div id="cart-content" class="hidden content">
-    Items in your cart:
-    Total value of the items:
-    <a href="#">Proceed to checkout</a>
+    Cart:
+    <table id="cart-table">
+            <tr>
+                <th>Product</th>
+                <th>Pc</th>
+                <th>$/pc</th>
+                <th>Subtotal</th>
+                <th></th>
+            </tr>
+    </table>
+    Total: <strong id="cart-total"></strong>
+    <button id="submit-order" onclick="onSubmitOrder()">Submit Order</button><br>
 </div>
+
 
 <div id="back-to-profile-content" class="hidden content">
     <br>

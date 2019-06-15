@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface BookDao {
     List<Book> findAll() throws SQLException;
+    Book findBookById(int id) throws SQLException;
 }

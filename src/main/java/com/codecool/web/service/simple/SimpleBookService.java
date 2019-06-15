@@ -14,10 +14,15 @@ public class SimpleBookService implements BookService {
     public SimpleBookService(BookDao bookDao) {
         this.bookDao = bookDao;
     }
-    
-    
+
+
     @Override
     public List<Book> findAll() throws SQLException {
         return bookDao.findAll();
+    }
+
+    @Override
+    public Book findBookById(int id) throws SQLException {
+        return bookDao.findBookById(id);
     }
 }
