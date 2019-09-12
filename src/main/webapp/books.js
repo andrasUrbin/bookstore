@@ -46,17 +46,11 @@ function appendBooks(Books) {
         addToCartFormDiv.setAttribute('class', 'add-to-cart');
         const addToCartForm = document.createElement('form');
         addToCartForm.setAttribute('class', 'buy-item-form');
-        const selectEl = document.createElement('select');
-        for (let k = 1; k < 11; k++) {
-            const optionEl = document.createElement('option');
-            optionEl.innerHTML = k;
-            selectEl.appendChild(optionEl);
-        }
+
         const addToCartButton = document.createElement('button');
-        addToCartButton.setAttribute('id', 'itemId' + Books[i].id);
-        addToCartButton.setAttribute('onclick', onAddToCartClicked);
+        addToCartButton.setAttribute('id', Books[i].id);
+        addToCartButton.addEventListener('click', onAddToCartClicked);
         addToCartButton.innerHTML = 'Add item to cart';
-        addToCartForm.appendChild(selectEl);
         addToCartForm.appendChild(addToCartButton);
         addToCartFormDiv.appendChild(addToCartForm);
 
@@ -66,4 +60,47 @@ function appendBooks(Books) {
 
         booksContentDiv.appendChild(itemContainerDiv);
     }
+}
+
+function onAddBookResponse() {
+    alert("Book added!");
+    if (this.status === OK) {
+        showContents(['books-content', 'topnav-admin']);
+    } else {
+        onOtherResponse(booksContentDivEl, this);
+    }
+}
+
+function onAddBookClicked(){
+    const inputFormEl = document.forms['addbook-form'];
+
+    const titleEl = inputFormEl.querySelector('input[name="title"]');
+    const authorEl = inputFormEl.querySelector('input[name="author"]');
+    const descEl = inputFormEl.querySelector('input[name="desc"]');
+    const priceEl = inputFormEl.querySelector('input[name="price"]');
+    const categoryEl = inputFormEl.querySelector('input[name="category_id"]');
+
+    const title = titleEl.value;
+    const author = authorEl.value;
+    const desc = descEl.value;
+    const price = priceEl.value;
+    const category = categoryEl.value;
+
+    const params = new URLSearchParams();
+    params.append('title', title);
+    params.append('author', author);
+    params.append('desc', desc);
+    params.append('price', price);
+    params.append('category_id', category);
+
+
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener('load', onAddBookResponse);
+    xhr.addEventListener('error', onNetworkError);
+    xhr.open('POST', 'book?' + params.toString());
+    xhr.send();
+}
+
+function onAddBookAdmin(){
+    showContents(['addbook-content', 'topnav-admin']);
 }

@@ -5,6 +5,9 @@ DROP TABLE IF EXISTS customer CASCADE;
 DROP TABLE IF EXISTS review CASCADE;
 DROP TABLE IF EXISTS book_order CASCADE;
 DROP TABLE IF EXISTS order_detail CASCADE;
+DROP TABLE IF EXISTS orders CASCADE;
+DROP TABLE IF EXISTS order_rows CASCADE;
+
 
 
 CREATE TABLE users (
@@ -45,8 +48,11 @@ CREATE INDEX category_fk_idx ON book (category_id);
 CREATE TABLE customer (
   customer_id SERIAL NOT NULL,
   email varchar(64) NOT NULL,
+    CONSTRAINT customer_email_not_empty CHECK (email <> ''),
   password varchar(16) NOT NULL,
+    CONSTRAINT customer_password_not_empty CHECK (password <> ''),
   fullname varchar(30) NOT NULL,
+    CONSTRAINT customer_fullname_not_empty CHECK (fullname <> ''),
   address varchar(128) NOT NULL,
   cash_amount int DEFAULT 50000,
   PRIMARY KEY (customer_id),
@@ -73,45 +79,48 @@ CREATE INDEX book_fk_idx ON review (book_id);
 CREATE INDEX customer_fk_idx ON review (customer_id);
 
 
-CREATE TABLE book_order (
-  order_id SERIAL NOT NULL,
-  customer_id int NOT NULL,
-  shipping_address varchar(256) NOT NULL,
-  recipient_name varchar(30) NOT NULL,
-  order_date DATE NOT NULL DEFAULT CURRENT_DATE,
-  total double precision NOT NULL,
-  status varchar(20) NOT NULL,
-  PRIMARY KEY (order_id),
-  CONSTRAINT order_id_UNIQUE UNIQUE  (order_id),
-  CONSTRAINT customer_fk_2 FOREIGN KEY (customer_id) REFERENCES customer (customer_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+CREATE TABLE orders (
+    id SERIAL PRIMARY KEY,
+    customer_id INTEGER,
+    	FOREIGN KEY (customer_id) REFERENCES customer(customer_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    total INTEGER DEFAULT 0,
+	dateOfCreation DATE DEFAULT current_timestamp
 );
 
-CREATE TABLE order_detail (
-  order_id int DEFAULT NULL,
-  book_id int DEFAULT NULL,
-  quantity int NOT NULL,
-  subtotal double precision NOT NULL,
-  CONSTRAINT book_fk_2 FOREIGN KEY (book_id) REFERENCES book (book_id) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT order_fk FOREIGN KEY (order_id) REFERENCES book_order (order_id) ON DELETE NO ACTION ON UPDATE NO ACTION
+CREATE TABLE order_rows (
+	order_id INTEGER,
+		FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE ON UPDATE CASCADE,
+	book_id INTEGER,
+		FOREIGN KEY (book_id) REFERENCES book(book_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE INDEX order_fk_idx ON order_detail (order_id);
-CREATE INDEX book_fk_2_idx ON order_detail (book_id);
+CREATE OR REPLACE FUNCTION count_total_value() RETURNS TRIGGER AS '
+    DECLARE
+        total_price int;
+		book_price int;
+    BEGIN
+		SELECT total INTO total_price FROM orders WHERE orders.id = NEW.orderId;
+		SELECT price INTO book_price FROM book WHERE NEW.book_id = book.book_id;
+        UPDATE orders SET total = total_price + (product_price * NEW.quantity) WHERE NEW.orderId = orders.id;
+        RETURN NEW;
+    END; '
+    LANGUAGE plpgsql;
+
 
 
 INSERT INTO users VALUES
     (1, 'user1@user1.com', 'user1', 'Urbin Andras'),
     (2, 'user2@user2.com', 'user2', 'Kovacs Peter');
 
-INSERT INTO category VALUES
-    (1, 'Sci-Fi'),
-    (2, 'Romantic'),
-    (3, 'Thriller'),
-    (4, 'Self-improvement');
+INSERT INTO category(category_name) VALUES
+    ('Sci-Fi'),
+    ('Romantic'),
+    ('Thriller'),
+    ('Self-improvement');
 
-INSERT INTO book VALUES
-    (1, 'The Alchemist', 'Paulo Coelho', 'A great book', 20, 4),
-    (2, 'Pet Cemetery', 'Stephen King', 'Thrilling book', 25, 3);
+INSERT INTO book(title, author, description, price, category_id) VALUES
+    ('The Alchemist', 'Paulo Coelho', 'A great book', 20, 4),
+    ('Pet Cemetery', 'Stephen King', 'Thrilling book', 25, 3);
 
 INSERT INTO customer (email, password, fullname, address, cash_amount) VALUES
     ('customer1@customer.com', 'customer1', 'Vladimir Putin', '666, Moskow, Stalin Street 66, Russia', 50000);
@@ -119,8 +128,10 @@ INSERT INTO customer (email, password, fullname, address, cash_amount) VALUES
 INSERT INTO review values
     (1, 2, 1, 5, 'Recommended 5*', 'Got a nightmare from this one!');
 
-INSERT INTO book_order VALUES
-    (1, 1, '666, Moskow, Stalin Street 66, Russia', 'Vladimir Putin', '2017-07-11', 20, 'Under delivery');
+INSERT INTO orders (customer_id) VALUES
+	(1),
+	(1);
 
-INSERT INTO order_detail VALUES
-    (1, 1, 1, 20);
+INSERT INTO order_rows (order_id, book_id) VALUES
+	(1, 2),
+	(1, 1);

@@ -8,6 +8,7 @@ let loginContentDivEl;
 let registrationContentDivEl;
 let booksContentDivEl;
 let cartTableEl;
+let cartContentDivEl;
 let profileContentDivEl;
 let backToProfileContentDivEl;
 let logoutContentDivEl;

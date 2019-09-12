@@ -40,17 +40,29 @@ public class DatabaseBookDao extends AbstractDao implements BookDao {
             "\t\ton (book.category_id = category.category_id)\n" +
             "\tfull join review\n" +
             "\t\ton (book.book_id = review.book_id)\n" +
-            "where book.book_id = ?;";
-        Book book = null;
+            "where book.book_id = ?";
         try(PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setInt(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
-                while (resultSet.next()) {
-                    book = fetchBook(resultSet);
+                if (resultSet.next()) {
+                    return fetchBook(resultSet);
                 }
             }
         }
-        return book;
+        return null;
+    }
+
+    @Override
+    public void addBook(String title, String author, String desc, int price, int categoryId) throws SQLException {
+        String sql = "INSERT INTO book(title, author, description, price, category_id) VALUES(?,?,?,?,?);";
+        try(PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setString(1, title);
+            statement.setString(2, author);
+            statement.setString(3, desc);
+            statement.setInt(4, price);
+            statement.setInt(5, categoryId);
+            statement.execute();
+        }
     }
 
     private Book fetchBook(ResultSet resultSet) throws SQLException {

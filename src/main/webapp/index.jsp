@@ -30,17 +30,13 @@
     <a id="logout-menu-button" class="active" href="javascript:void(0);">Logout</a>
     <a href="javascript:void(0);" onclick="onListBooksClicked();">Browse Books</a>
     <a href="javascript:void(0);" onclick="onListBooksClicked();">Cart</a>
-    <a href="javascript:void(0);" onclick="onListBooksClicked();">My Profile</a>
-    <a href="javascript:void(0);" onclick="onBackToProfileClicked();">Back to profile</a>
 </div>
 
 <div id="topnav-admin" class="hidden content">
     <a id="logout-menu-button" class="active" href="javascript:void(0);">Logout</a>
     <a href="javascript:void(0);" onclick="onListSchedulesClicked();">Browse Books</a>
-    <a href="javascript:void(0);" onclick="onListBooksClicked();">Add books</a>
+    <a href="javascript:void(0);" onclick="onAddBookAdmin();">Add books</a>
     <a href="javascript:void(0);" onclick="onListBooksClicked();">Manage users</a>
-    <a href="javascript:void(0);" onclick="onListBooksClicked();">My Profile</a>
-    <a href="javascript:void(0);" onclick="onBackToProfileClicked();">Back to profile</a>
 </div>
 
 <div id="reg-content" class="hidden content">
@@ -87,18 +83,28 @@
 <div id="cart-content" class="hidden content">
     Cart:
     <table id="cart-table">
-            <tr>
-                <th>Product</th>
-                <th>Pc</th>
-                <th>$/pc</th>
-                <th>Subtotal</th>
-                <th></th>
-            </tr>
+        
     </table>
     Total: <strong id="cart-total"></strong>
     <button id="submit-order" onclick="onSubmitOrder()">Submit Order</button><br>
 </div>
 
+<div id="addbook-content" class="hidden content">
+    <h1>Add book to the database</h1>
+    <form id="addbook-form" onsubmit="return false;">
+        <h3>Title: </h3>
+        <input type="text" name="title">
+        <h3>Author: </h3>
+        <input type="text" name="author">
+        <h3>Description: </h3>
+        <input type="text" name="desc">
+        <h3>Price: </h3>
+        <input type="number" name="price">
+        <h3>Category ID: </h3>
+        <input type="number" name="category_id">
+        <button id="addbook-button" onclick="onAddBookClicked();">Add book to database!</button>
+    </form>
+</div>
 
 <div id="back-to-profile-content" class="hidden content">
     <br>

@@ -1,8 +1,8 @@
 package com.codecool.web.dao.database;
 
 import com.codecool.web.dao.CustomerDao;
-import com.codecool.web.model.BookOrder;
 import com.codecool.web.model.Customer;
+import com.codecool.web.model.Order;
 import com.codecool.web.model.Review;
 
 import java.sql.*;
@@ -74,9 +74,26 @@ public class DatabaseCustomerDao extends AbstractDao implements CustomerDao {
         String password = resultSet.getString("password");
         String fullName = resultSet.getString("fullname");
         List<Review> review = null;
-        List<BookOrder> bookOrders = null;
+        List<Order> orders = null;
         String address = resultSet.getString("address");
         int cashAmount = resultSet.getInt("cash_amount");
-        return new Customer(id, email, password, fullName, review, bookOrders, address, cashAmount);
+        return new Customer(id, email, password, fullName, review, orders, address, cashAmount);
+    }
+
+    private List<Order> getCustomerOrders(Customer customer) throws SQLException {
+        String sql = "SELECT * FROM orders WHERE customer_id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, customer.getId());
+            try (ResultSet resultSet = statement.executeQuery()) {
+                List<Order> orders = new ArrayList<>();
+                while (resultSet.next()) {
+                    int id = resultSet.getInt("id");
+                    Date date = resultSet.getDate("dateOfCreation");
+                    int total = resultSet.getInt("total");
+                    orders.add(new Order(id, date, total));
+                }
+                return orders;
+            }
+        }
     }
 }

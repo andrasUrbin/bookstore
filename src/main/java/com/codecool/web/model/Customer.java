@@ -8,17 +8,17 @@ public class Customer extends AbstractModel {
     private String password;
     private String fullName;
     private List<Review> reviews;
-    private List<BookOrder> bookOrders;
+    private List<Order> orders;
     private String address;
     private int cashAmount;
 
-    public Customer(int id, String email, String password, String fullName, List<Review> reviews, List<BookOrder> bookOrders, String address, int cashAmount) {
+    public Customer(int id, String email, String password, String fullName, List<Review> reviews, List<Order> orders, String address, int cashAmount) {
         super(id);
         this.email = email;
         this.password = password;
         this.fullName = fullName;
         this.reviews = reviews;
-        this.bookOrders = bookOrders;
+        this.orders = orders;
         this.address = address;
         this.cashAmount = cashAmount;
     }
@@ -71,11 +71,11 @@ public class Customer extends AbstractModel {
         this.reviews = reviews;
     }
 
-    public List<BookOrder> getBookOrders() {
-        return bookOrders;
+    public List<Order> getOrders() {
+        return orders;
     }
 
-    public void setBookOrders(List<BookOrder> bookOrders) {
-        this.bookOrders = bookOrders;
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 }

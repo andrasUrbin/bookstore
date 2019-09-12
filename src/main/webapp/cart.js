@@ -38,23 +38,22 @@ function addBookToCart(book) {
 
 function onAddToCartResponse() {
     if (this.status === OK) {
-        book = JSON.parse(this.responseText);
+        let book = JSON.parse(this.responseText);
         //showContents(['books-content', 'topnav-customer', 'cart-content']);
         addBookToCart(book);
     } else {
-        onOtherResponse(this);
+        onOtherResponse(cartContentDivEl, this);
     }
 }
 
 function onAddToCartClicked() {
-    const thisBookId = this.id.split('Id')[1];
-    console.log(thisBookId);
+    const thisBookId = this.id;
     const params = new URLSearchParams;
     params.append('id', thisBookId);
 
     const xhr = new XMLHttpRequest;
     xhr.addEventListener('load', onAddToCartResponse);
     xhr.addEventListener('error', onNetworkError);
-    xhr.open('GET', '/protected/book?' + params);
+    xhr.open('GET', '/book?' + params.toString());
     xhr.send();
 }

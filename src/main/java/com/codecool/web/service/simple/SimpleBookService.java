@@ -25,4 +25,9 @@ public class SimpleBookService implements BookService {
     public Book findBookById(int id) throws SQLException {
         return bookDao.findBookById(id);
     }
+
+    @Override
+    public void addBook(String title, String author, String desc, int price, int categoryId) throws SQLException {
+        bookDao.addBook(title, author, desc, price, categoryId);
+    }
 }
